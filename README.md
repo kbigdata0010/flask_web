@@ -70,6 +70,8 @@ if __name__ == '__main__':
     app.run()
 ```
 
+
+
 파이썬에서 index.html 템플릿 파일을 읽어서 문서데이터 변형후 클라이언트에 전송한다.
 
 url : http://localhost:5000
@@ -80,16 +82,21 @@ data : Hello World!! 에 포함되어 있는 html 문서 데이터를 전송한�
 
 templates/index.html 파일을 생성후 다음과 같이 코드를 추가
 
+
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹페이지</title>
+    <title>FlaskWeb</title>
 </head>
 <body>
-    <h1>Hello World!!</h1>
+    <h1>Hello
+         World!!!</h1>
+    {{ fewfwefew }}
+    <h2 >잘생긴 원빈</h2>
 </body>
 </html>
 ```
