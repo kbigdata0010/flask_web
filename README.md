@@ -124,7 +124,8 @@ app.py의 @app.route(’/’)을 다음과 같이 수정한다.
 
 @app.route('/')
 def index():
-    os_info = dict(request.headers)
+    os_info = d
+    ict(request.headers)
     print(os_info) 
     return render_template('index.html',header=os_info )
 
