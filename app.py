@@ -65,5 +65,20 @@ def login():
             else:
                 return redirect('/register')
 
+@app.route('/recommander', methods=['GET', 'POST'])
+def recommander():
+    mymovie = request.form['mymovie']
+    query = {
+            "email":"1@naver.com"
+        }
+    result = mongo_db.find_data(collection_name='register', query=query)
+    recommander = GET_REMMAND(userId=int(result[0]['userId']))
+    # print(recommander)
+    content_sim_dict = recommander.cosine_similarity(based="content_based" , target_movie=mymovie)
+    # print(content_sim_dict)
+    recommand_movie = recommander.target_weighted_ranking_recommand(content_sim_dict['movieId'] ,content_sim_dict['content_similarity'],content_sim_dict['df'] , 5 )
+    print(recommand_movie.values)
+    return render_template('recommandmovie.html', movies=recommand_movie.values)
+
 if __name__ == "__main__":
     app.run(debug=True)
