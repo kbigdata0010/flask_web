@@ -2,16 +2,23 @@ from flask import Flask , render_template ,request , redirect
 import pandas as pd
 from mongodb import MONGODB
 from passlib.hash import pbkdf2_sha256
+from movies import GET_REMMAND
 
 app = Flask(__name__)
 
 mongodb_url='mongodb+srv://root:1234@mydb.vqrlsdn.mongodb.net/?retryWrites=true&w=majority&appName=mydb'
-mongo_db = MONGODB(mongodb_url , 'recommanMovie')
+mongo_db = MONGODB(mongodb_url , 'recommandMovie')
 
 @app.route('/')
 def index():
-    # print(request.headers)
-    return render_template('index.html' , data=request.headers)
+    query = {
+            "email":"1@naver.com"
+        }
+    result = mongo_db.find_data(collection_name='register', query=query)
+    recommander = GET_REMMAND(userId=int(result[0]['userId']))
+    mymovies = recommander.my_movies()
+    print(mymovies.values)
+    return render_template('index.html' , data=mymovies.values)
 
 @app.route('/register' , methods=['GET', 'POST'])
 def register():
